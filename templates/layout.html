@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}style/style.css" />
+        <script src="{{ STATIC_URL }}script/objects.js"></script>
+        <script src="{{ STATIC_URL }}script/script.js"></script>
+        <title>{% block title %}My amazing site{% endblock %}</title>
+    </head>
+
+    <body>
+        
+        <header>
+
+            <h1>
+                Smart Privacy dot Org 
+            </h1>
+
+            <canvas id="canvas">
+                This text is displayed if your browser 
+                does not support HTML5 Canvas.
+            </canvas>
+        
+        </header>
+    
+
+        <nav id="sidebar">
+            {% block sidebar %}
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog/">Blog</a></li>
+            </ul>
+            {% endblock %}
+        </nav>
+
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

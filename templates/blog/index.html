@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+
+
+{% block content %}
+
+{% for article in articles %}
+    <article>
+        <h2>{{ article.title }}</h2>
+        <section>
+        {{ article.content|truncatewords:"150" }}
+        </section>
+    </article>
+
+{% endfor %}
+
+
+{% endblock %}
+
+
