@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 USER_TEMPLATE="users/"
 
-def logout(request):
+def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/blog/home')
 

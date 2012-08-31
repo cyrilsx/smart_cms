@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="{{ STATIC_URL }}style/style.css" />
         <script src="{{ STATIC_URL }}script/objects.js"></script>
         <script src="{{ STATIC_URL }}script/script.js"></script>
-        <title>{% block title %}My amazing site{% endblock %}</title>
+        <title>{% block title %}Smart Privacy dot Org{% endblock %}</title>
     </head>
 
     <body>
@@ -20,10 +20,17 @@
                 This text is displayed if your browser 
                 does not support HTML5 Canvas.
             </canvas>
-        
+
+            {% if user.is_authenticated %}
+            <aside id="auth_user_menu">
+            Welcome {{ user.username }}
+            <a href="/users/logout/"><img src="{{ STATIC_URL }}icon/exit.png" alt="logout"></img></a>
+            </aside>
+            {% endif %}
+
         </header>
     
-
+        <!--
         <nav id="sidebar">
             {% block sidebar %}
             <ul>
@@ -32,7 +39,7 @@
             </ul>
             {% endblock %}
         </nav>
-
+        -->
         <div id="content">
             {% block content %}{% endblock %}
         </div>
