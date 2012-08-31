@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'smart_cms.views.home', name='home'),
     url(r'^blog/', include('smart_cms.blog.urls')),
+    url(r'^users/', include('smart_cms.users.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
