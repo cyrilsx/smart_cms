@@ -1,9 +1,19 @@
+html {
+/*    background: url("../icon/bg.png");*/
+    background: #e5e1e1;
+    height: 100%;
+}
+
 header {
     position: relative;
     top: 0;
     width: 100%;
     height: 100px;
-    border-bottom: #EEE 1px solid;;
+    border-bottom: #1e066b 1px solid;;
+}
+
+body {
+    height: 100%;
 }
 
 header h1 {
@@ -24,9 +34,11 @@ nav {
     padding-top: 10px;
     position:relative;
     margin: auto;
-    border-left: #EEE 1px solid;
-    border-right: #EEE 1px solid;
-    width: 90%;
+    border-left: #1e066b 1px solid;
+    border-right: #1e066b 1px solid;
+    width: 80%%;
+    min-height: 100%;
+    background: white;
 }
 
 .item section {
@@ -34,4 +46,15 @@ nav {
 
 }
 
+#auth_user_menu {
+    position: relative;
+    float:right;
+    z-index: 5;
+}
+
+#auth_user_menu  img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+}
 
