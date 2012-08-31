@@ -35,6 +35,7 @@ def login_user(request):
     return render_to_response(USER_TEMPLATE + 'login.html', data, context_instance=RequestContext(request))
 
 
+
 def edit_user(request, username=None):
     if username != None:
         edituser = User.objects.get(username=username)

@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ article.title }}{% endblock %}
+
+{% block content %}
+    <section>
+    <h1> {{ article.title }}</h1>
+    {% if user.is_staff%}
+    <ul>
+        <li><a href="/blog/edit/{{ article.id }}">Edit</a></li>
+        <li><a href="/blog/delete/{{ article.id }}">Delete</a></li>
+    </ul>
+    {% endif %}
+    <p>
+    {{ article.content }}
+    </p>
+    </section>
+{% endblock %}
+
+
+
+

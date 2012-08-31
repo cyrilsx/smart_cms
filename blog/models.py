@@ -1,14 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 # Create your models here.
 class Article(models.Model):
     title = models.CharField(max_length=125)
-    pub_date = models.DateField()
-    update_date = models.DateField()
+    pub_date = models.DateTimeField(default=timezone.now)
+    update_date = models.DateTimeField(default=timezone.now)
     content = models.TextField()
-    like = models.IntegerField()
-    author = models.ForeignKey(User)
+    like = models.IntegerField(blank=True,default=0)
+    author = models.ForeignKey(User, blank=True)
 
 
 class Reference(models.Model):
