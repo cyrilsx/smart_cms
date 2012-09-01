@@ -10,16 +10,16 @@
 
     <body>
         
+        <canvas id="canvas">
+        </canvas>
+
+
         <header>
 
             <h1>
                 Smart Privacy dot Org 
             </h1>
 
-            <canvas id="canvas">
-                This text is displayed if your browser 
-                does not support HTML5 Canvas.
-            </canvas>
 
             {% if user.is_authenticated %}
             <aside id="auth_user_menu">

@@ -42,6 +42,8 @@ function RectView(x, y, width, height, color) {
     
     this.x = x;
     this.y = y;
+    this.translatex = 0;
+    this.translatey = 0;
     this.width = width;
     this.height = height;
     this.color = color;
@@ -49,10 +51,14 @@ function RectView(x, y, width, height, color) {
     this.border_color = null;
     this.line_width = 0;
     
+    this.rot = 0;
+    
     this.speedx = 0; // px/s 
     this.speedy = 0; // px/s 
     
     this.draw = function(context) {
+        context.rotate(this.rot * Math.PI / 180);
+        context.translate(this.translatex, this.translatey)
         context.fillStyle = this.color;
         context.fillRect(this.x, this.y, this.width, this.height);
 
@@ -64,8 +70,8 @@ function RectView(x, y, width, height, color) {
     }
     
     this.animate = function(timeframe) {
-        this.x += (timeframe * this.speedx) / 1000;
-        this.y += (timeframe * this.speedy) / 1000;
+        this.translatex += (timeframe * this.speedx) / 1000;
+        this.translatey += (timeframe * this.speedy) / 1000;
     }
 }
 
@@ -75,6 +81,8 @@ function ImageView(x, y, image, width, height) {
     
     this.x = x;
     this.y = y;
+    this.translatex = 0;
+    this.translatey = 0;
     this.width = width;
     this.height = height;
     this.image = new Image();
@@ -86,13 +94,59 @@ function ImageView(x, y, image, width, height) {
     
     this.draw = function(context) {
         context.rotate(this.rot * Math.PI / 180);
+        context.translate(this.translatex, this.translatey)
         context.drawImage(this.image, this.x, this.y, this.width, this.height);
     }
     
     this.animate = function(timeframe) {
-        this.x += (timeframe * this.speedx) / 1000;
-        this.y += (timeframe * this.speedy) / 1000;
+        this.translatex += (timeframe * this.speedx) / 1000;
+        this.translatey += (timeframe * this.speedy) / 1000;
     }
+
+}
+
+
+function AnonymousPictureView(x, y, width, height, image, border_weight, rotation, speedx, speedy) {
+    
+    this.prototype = new View();
+    this.prototype.constructor = AnonymousPictureView;
+
+    this.border_w = border_weight;
+    this.imageView = new ImageView(x + this.border_w, y + this.border_w, image, width - (2 * this.border_w), height - this.border_w - 10);
+    //this.imageView.rot = rotation;
+    this.frame = new RectView(x, y, width, height, "#FFF");
+    //this.frame.rot = rotation;
+    this.rot = rotation;
+    this.speedx = speedx;
+    this.speedy = speedy;
+    this.translatex = 0;
+    this.translatey = 0;
+
+    this.draw = function(context) {
+        context.save();
+        context.rotate(this.rot * Math.PI / 180);
+        context.translate(this.translatex, this.translatey);
+
+
+        context.shadowColor = "black";
+        context.shadowOffsetX = 1;
+        context.shadowOffsetY = 3;
+        context.blur = 5;
+        this.frame.draw(context);
+
+        context.shadowOffsetX = 0;
+        context.shadowOffsetY = 0;
+        context.blur = 0;
+        this.imageView.draw(context);
+
+        context.restore();
+    }
+    
+    this.animate = function(timeframe) {
+        this.translatex += (timeframe * this.speedx) / 1000;
+        this.translatey += (timeframe * this.speedy) / 1000;
+    }
+
 
 }
 
