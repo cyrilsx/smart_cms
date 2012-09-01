@@ -103,6 +103,7 @@ function ImageView(x, y, image, width, height) {
         this.translatey += (timeframe * this.speedy) / 1000;
     }
 
+
 }
 
 
@@ -173,6 +174,7 @@ function AnimationContext(canvas, width, height, timeframe,array_views) {
             self.views[i].animate(self.timeframe);
         }
 
+        //Filters.blur(8,self.context, self.canvas);
     }
 
 }

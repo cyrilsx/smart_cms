@@ -1,35 +1,4 @@
 
-
-function init() {
-    var canvas = document.getElementById('canvas');
-    canvas.witdh = 800;
-    canvas.height = 800;
-
-    var views= [
-            new AnonymousPictureView(-10, 400, 100, 150, "/static/img/anim_bg/anonymous_character.jpg", 3, 20, 30, -8),
-            new AnonymousPictureView(-180, 50, 150, 150, "/static/img/anim_bg/net_character.png", 3, -20, 30, 8),
-            new AnonymousPictureView(-300, 45, 150, 150, "/static/img/anim_bg/ski_character.png", 3, 10, 30, -3),
-        ];
-
-    anim = new AnimationContext(canvas, canvas.width, canvas.height, 10, views);
-    
-
-    var imageData = anim.context.getImageData(0,0,canvas.width,canvas.height);
-    Filters.blur(3,anim.context, canvas);
-        //Filters.filterImage(Filters.convolute, anim.context, canvas,
-        //        [ 1/9, 1/9, 1/9,
-        //        1/9, 1/9, 1/9,
-        //        1/9, 1/9, 1/9 ]
-        // );
-
-
-    setInterval(anim.draw, anim.timeframe);
-    return anim;
-}
-
-
-
-
 Filters = {};
 Filters.getPixels = function(context, img) {
     context.drawImage(img, 0,0);
@@ -115,11 +84,3 @@ Filters.convolute = function(pixels, weights, opaque) {
   }
   return output;
 };
-
-
-document.onreadystatechange=function(){
-    if (document.readyState=="complete"){
-        // call init()
-        init();
-    }
-}
