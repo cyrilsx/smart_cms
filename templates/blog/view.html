@@ -3,18 +3,29 @@
 {% block title %}{{ article.title }}{% endblock %}
 
 {% block content %}
-    <section>
-    <h1> {{ article.title }}</h1>
-    {% if user.is_staff %}
-    <ul>
-        <li><a href="/blog/edit/{{ article.id }}">Edit</a></li>
-        <li><a href="/blog/delete/{{ article.id }}">Delete</a></li>
-    </ul>
-    {% endif %}
-    <p>
-    {{ article.content }}
-    </p>
-    </section>
+    <article class="summary">
+        <section class="article-title">
+        <time datetime="{{ article.pub_date }}" class="postdate">
+            <div class="month m-{{ article.pub_date|date:"m" }}">{{ article.pub_date|date:"M" }}</div>
+            <div class="day d-{{ article.pub_date|date:"d" }}">{{ article.pub_date|date:"D" }}</div>
+            <div class="year y-{{ article.pub_date|date:"Y" }}">{{ article.pub_date|date:"Y" }}</div>
+        </time>
+        <aside>
+            <h2 class="title">{{ article.title }}</h2>
+            <p class="title"> Tag: </p>
+            {% if user.is_staff %}
+                <ul>
+                    <li><a href="/blog/edit/{{ article.id }}">Edit</a></li>
+                    <li><a href="/blog/delete/{{ article.id }}">Delete</a></li>
+                </ul>
+            {% endif %}
+        </aside>
+        </section>
+
+        <section>
+        {{ article.content }}
+        </section>
+    </article>
 {% endblock %}
 
 

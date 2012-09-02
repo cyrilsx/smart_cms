@@ -7,10 +7,24 @@
 {% block content %}
 
 {% for article in articles %}
-    <article>
-        <h2>{{ article.title }}</h2>
+    <article class="summary">
+        <section class="article-title">
+        <time datetime="{{ article.pub_date }}" class="postdate">
+            <div class="month m-{{ article.pub_date|date:"m" }}">{{ article.pub_date|date:"M" }}</div>
+            <div class="day d-{{ article.pub_date|date:"d" }}">{{ article.pub_date|date:"D" }}</div>
+            <div class="year y-{{ article.pub_date|date:"Y" }}">{{ article.pub_date|date:"Y" }}</div>
+        </time>
+        <aside>
+            <h2 class="title">{{ article.title }}</h2>
+            <p class="title"> Tag: </p>
+        </aside>
+        </section>
+
         <section>
         {{ article.content|truncatewords:"150" }}
+        <p>
+            <a href="/blog/view/{{ article.id }}">Read more...</a>
+        </p>
         </section>
     </article>
 

@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <link rel="stylesheet" href="{{ STATIC_URL }}style/style.css" />
+        <link rel="stylesheet" href="{{ STATIC_URL }}style/date.css" />
         <script src="{{ STATIC_URL }}script/filters.js"></script>
         <script src="{{ STATIC_URL }}script/objects.js"></script>
         <script src="{{ STATIC_URL }}script/script.js"></script>
@@ -16,20 +17,26 @@
 
 
         <header>
-
+        
+            <img id="banner-eye" src="{{ STATIC_URL }}icon/eyes.png" alt="eyes"/>
+            
             <h1>
-                Smart Privacy dot Org 
+                <a href="/blog/home">Smart Privacy dot Org</a>
             </h1>
 
 
+        </header>
+
+        <nav>
             {% if user.is_authenticated %}
             <aside id="auth_user_menu">
             Welcome {{ user.username }}
             <a href="/users/logout/"><img src="{{ STATIC_URL }}icon/exit.png" alt="logout"></img></a>
+            <a href="/blog/edit/">new entry</a>
             </aside>
             {% endif %}
+        </nav>
 
-        </header>
     
         <!--
         <nav id="sidebar">
