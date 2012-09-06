@@ -26,21 +26,50 @@ function init() {
     return anim;
 }
 
+
 function animateBanner() {
-    canvas = createCanvasHeader('anim-header', "100%", "100px");  
-    
+    canvas = createCanvasHeader('anim-header', 'letter-anim');  
+    canvasBuf = createCanvasHeader('anim-header-buf', 'letter-anim-buf');  
+    var width = document.documentElement.clientWidth || document.body.clientWidth;
+    canvas.witdh = width;
+    canvas.height = 100;
+
+    textAnim = new Three3DTextAnimationContext(canvas, canvasBuf, 50, 10, 500);    
+    setInterval(textAnim.draw, textAnim.timeframe);
 
 
 }
 
-function createCanvasHeader(id, canvasWidth, canvasHeight) {
-    var canvasDiv = document.getElementById('header');
+function createCanvasHeader(id, className) {
+    var header = document.querySelector('header');
     canvas = document.createElement('canvas');
-    canvas.setAttribute('width', canvasWidth);
-    canvas.setAttribute('height', canvasHeight);
-    canvas.setAttribute('id', 'canvas');
-    canvasDiv.appendChild(canvas); 
+    canvas.setAttribute('id', id);
+    canvas.className += className;
+    header.appendChild(canvas); 
     return canvas;
+}
+
+function showMenu() {
+    var showMenuBtn = document.getElementById('showMenuBtn');
+    var hideMenuBtn = document.getElementById('hideMenuBtn');
+    showMenuBtn.style.visibility = "hidden";
+    hideMenuBtn.style.visibility = "visible";
+    var menu = document.getElementById('menu');
+    menu.style.visibility = "visible";
+    menuBtn = document.getElementById('menuBtn');
+    menuBtn.style.visibility = "visible";
+}
+
+
+function hideMenu() {
+    var showMenuBtn = document.getElementById('showMenuBtn');
+    var hideMenuBtn = document.getElementById('hideMenuBtn');
+    var menu = document.getElementById('menu');
+    var menuBtn = document.getElementById('menuBtn');
+    hideMenuBtn.style.visibility = "hidden";
+    showMenuBtn.style.visibility = "visible";
+    menu.style.visibility = "hidden";
+    menuBtn.style.visibility = "visible";
 }
 
 
@@ -50,5 +79,7 @@ document.onreadystatechange=function(){
     if (document.readyState=="complete"){
         // call init()
         //init();
+        animateBanner();
+        hideMenu();
     }
 }

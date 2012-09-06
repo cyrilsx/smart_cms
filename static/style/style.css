@@ -59,7 +59,12 @@ header h1 {
     position: absolute;
     top: 25px;
     right: 0px;
+    z-index: 10;
+}
+
+header a {
     text-decoration:none;
+    color: #44588c;
 }
 
 #canvas {
@@ -69,14 +74,90 @@ header h1 {
     z-index: -1;
 }
 
-nav {
-    position: absolute;
+
+.navigation {
+    z-index: 15;
+    background-color: #e5e1e1;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid;
+    box-shadow: 10px 10px 5px #888;
+    min-height: 200px;
+    width: 300px;
+    text-align: justify;
+    color: #434c5e;
 }
+
+.navigation p {
+    padding: 3px;
+    list-style: square inside;
+}
+
+.navigation a {
+    text-decoration: none;
+    color: #434c5e;
+}
+
+.btn-navigation img {
+    position: absolute;
+   width: 48px;
+   height: 32px;
+   top: 15px;
+   right: -2px;
+
+
+}
+
+.btn-navigation {
+   position:absolute;
+   width: 60px;
+   height: 60px; 
+   background: url("../icon/round.png") top center no-repeat;
+   z-index: 16;
+   top: -25px;
+   right:-30px;
+}
+
+.loginlogout {
+    position: relative;
+}
+
+.loginlogout img {
+    position: absolute;;
+    height:24px;
+    width:24px;
+    left: 5px;
+    top: -2px;
+}
+
+
+#hideMenuBtn {
+    visibility: hidden;
+}
+
 
 #banner-eye {
     position:absolute;
     left:10%;
+}
 
+.letter-anim {
+    width: 80%;
+    margin-left: 10%;
+    height: 100px;
+    z-index: 5;
+}
+
+.letter-anim-buf {
+    width: 80%;
+    margin-left: 10%;
+    height: 100px;
+    z-index: 5;
+    visibility: hidden;
+    position: absolute;
+    top:0;
+    left:0;
 }
 
 #content {
@@ -136,3 +217,52 @@ p.title {
     margin-bottom:0px;
 }
 
+.form-error {
+    background: none repeat scroll 0 0 #FFEEEE;
+    border-color: #CC0000;
+}
+
+.form-valid {
+    background: none repeat scroll 0 0 #E6EFC2;
+    border-color: #C6D880;
+}
+
+
+.in-error{
+    position: relative;
+    z-index: 3;
+}
+
+.in-error:hover {
+    background-color: transparent;
+    z-index: 50;
+}
+
+.in-error span {
+    position: absolute;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+    visibility: hidden;
+    color: black;
+    text-decoration: none;
+    width: 200px;
+}
+.in-error img {
+    top: 3px;
+}
+
+.in-error ul {
+    margin:0;
+}
+
+.in-error span  { 
+    border-width: 0;
+    padding: 2px;
+}
+
+.in-error:hover span { 
+    visibility: visible;
+    top: 0;
+    left: 60px; /*position where enlarged image should offset horizontally */
+}

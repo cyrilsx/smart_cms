@@ -1,5 +1,3 @@
-
-
 function View() {
 
     this.draw = function(context) {
@@ -175,6 +173,133 @@ function AnimationContext(canvas, width, height, timeframe,array_views) {
         }
 
         //Filters.blur(8,self.context, self.canvas);
+    }
+
+}
+
+
+function ThreeDTextView(x, y, z, size, font, color, text, speedx, diedwhenx, callback) {
+    this.prototype = new View();
+    this.prototype.constructor = ThreeDTextView;
+    
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    //this.translatex = 10;
+    //this.translatey = 0;
+    this.color = color;
+    this.text = text;
+
+    this.callback = callback;
+    this.diedwhenx = diedwhenx;
+    this.size = size;
+    this.font = font;
+
+    this.rot = 0;
+    
+    this.speedx = speedx; // px/s 
+    this.speedy = 0; // px/s 
+    
+    this.draw = function(context) {
+        //context.rotate(this.rot * Math.PI / 180);
+        //context.translate(this.translatex, this.translatey);
+        context.fillStyle = this.color;
+        context.textBaseline = 'middle';
+        context.font = "bold " + this.size * (1/this.z) + "px " + font;
+        context.globalAlpha = 1 - 1.5 * (this.x / this.diedwhenx);
+        context.fillText(this.text, this.x, this.y);
+
+    }
+    
+    this.animate = function(timeframe) {
+        if(this.x >= this.diedwhenx) {
+            this.callback(this);
+        }
+        this.x += (timeframe * this.speedx) / 1000;
+        this.y += (timeframe * this.speedy) / 1000;
+    }
+}
+
+function randomString(string_length) {
+    var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
+    var randomstring = '';
+    for (var i=0; i<string_length; i++) {
+        var rnum = Math.floor(Math.random() * chars.length);
+        randomstring += chars[rnum];
+    }
+    return randomstring;
+}
+
+function randomColor(r, b, g, varR, varB, varG) {
+    //i5073b0
+    r += varR/2 - Math.floor(Math.random() * varR);
+    b += varB/2 - Math.floor(Math.random() * varB);
+    g += varG/2 - Math.floor(Math.random() * varG);
+    return "rgb(" + r + "," + g + "," + b + ")";
+}
+
+
+//function Three3DTextAnimationContext(canvas/*, width, height,*/ x, y, targetx) {
+function Three3DTextAnimationContext(canvas,bufCanvas, x, y, targetx) {
+    this.canvas = canvas;
+    this.currentBufIndex = 0;
+    this.buffers = [canvas, bufCanvas];
+    this.views = [];
+    this.targetx = targetx;
+    this.timeframe = 100;
+
+    this.context = this.canvas.getContext("2d");
+    this.generationInterval = 10;
+    this.currentTimeline = 0;
+    this.x = x;
+    this.y = y;
+
+    var self = this;
+
+    this.clear = function() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+
+    this.switchBuffer = function() {
+        if(this.currentBufIndex == 0) {
+            this.buffers[0].style.visibility='hidden';
+            this.buffers[1].style.visibility='visible';
+            this.currentBufIndex = 1;
+        } else {
+            this.buffers[1].style.visibility='hidden';
+            this.buffers[0].style.visibility='visible';
+            this.currentBufIndex = 0;
+        }
+        this.context = this.buffers[this.currentBufIndex].getContext('2d');
+    }
+
+    this.dead = function(textRef) {
+        var i = self.views.indexOf(textRef);
+        self.views.slice(i);
+    }
+
+    this.generateText = function() {
+        var y = 25 + Math.floor(Math.random() * 50);
+        var z = Math.floor(Math.random() * 5);
+        var text = randomString(1);
+        var color = randomColor(80,200,115,0,80,0);
+        this.views.push(new ThreeDTextView(this.x, y, z, 12, "sans-serif", color, text, 5, this.targetx, this.dead));
+        this.currentTimeline = 0;
+    }
+
+    this.draw = function() {
+        self.clear();
+        for(var i = 0; i < self.views.length; i++) {
+            self.views[i].draw(self.context);
+            self.views[i].animate(self.timeframe);
+        }
+
+       if(self.currentTimeline >= self.generationInterval) {
+            self.generateText();
+       }
+
+        self.currentTimeline++;
+        self.switchBuffer();
     }
 
 }

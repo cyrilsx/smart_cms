@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ section.title }}{% endblock %}
+{% block title %}{{ section.title }} :: Login{% endblock %}
 
 {% block content %}
 <form action="/users/login/" method="post">
@@ -10,14 +10,42 @@
     </div>
     {{ form.non_field_errors }}
     <div class="fieldWrapper">
-        {{ form.username.errors }}
         <label for="id_username">Username:</label>
-        {{ form.username }}
+        <input id="id_username" type="text" name="username" {% if form.username.value %} value="{{ form.username.value}}" {% endif %}  maxlength="100" 
+        {% if form.username.errors|length > 0 %}
+            class="form-error"
+        {% else %}
+            class="form-valid"
+        {% endif %}
+        
+        />
+        {% if form.username.errors|length > 0 %}
+        <a href="#" class="in-error">
+            <img class="in-error" src="{{ STATIC_URL }}/icon/warning.png" alt="error" />
+            <span class="in-error">
+                {{ form.username.errors }}
+                </span>
+        </a>
+        {% endif %}
     </div>
     <div class="fieldWrapper">
-        {{ form.password.errors }}
         <label for="id_password">Password:</label>
-        {{ form.password }}
+        <input id="id_password" type="password" name="password"
+        {% if form.password.errors|length > 0 %}
+            class="form-error"
+        {% else %}
+            class="form-valid"
+        {% endif %}
+        
+        />
+        {% if form.password.errors|length > 0 %}
+        <a href="#" class="in-error">
+            <img class="in-error" src="{{ STATIC_URL }}/icon/warning.png" alt="error" />
+            <span class="in-error">
+                {{ form.password.errors }}
+                </span>
+        </a>
+        {% endif %}
     </div>
     <input type="submit" value="Submit" />
 </form>

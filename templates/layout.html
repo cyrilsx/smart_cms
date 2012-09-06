@@ -27,14 +27,44 @@
 
         </header>
 
-        <nav>
-            {% if user.is_authenticated %}
-            <aside id="auth_user_menu">
-            Welcome {{ user.username }}
-            <a href="/users/logout/"><img src="{{ STATIC_URL }}icon/exit.png" alt="logout"></img></a>
-            <a href="/blog/edit/">new entry</a>
+        <nav id="menu" class="navigation">
+            <aside id="menuBtn" class="btn-navigation">
+                <img id="showMenuBtn" onclick="showMenu();" src="{{ STATIC_URL }}/icon/decryted.png"
+                    alt="menu_close" />
+                <img id="hideMenuBtn" onclick="hideMenu();" src="{{ STATIC_URL }}/icon/encryted.png"
+                    alt="menu_close" />
             </aside>
+
+            {% if user.is_authenticated %}
+                <p>        
+                    Welcome {{ user.username }}
+                    <a href="/users/logout/" class="loginlogout"><img src="{{ STATIC_URL }}icon/exit.png" alt="logout"></img></a>
+                </p>
+
+                <p>
+                    <h3>Administration</h3>
+                    <ul>
+                        <li><a href="/blog/edit/">New Article</a></li>
+                    </ul>
+                </p>
+
+
+            {% else %}
+                <p>        
+                Welcome, <br /> 
+                There is just another blog on the Internet. Main topics
+                discuted here will be:
+                <ul>
+                    <li>Security</li>
+                    <li>Privacy</li>
+                </ul>
+                Let's login? <a href="/users/login/" class="loginlogout"><img src="{{ STATIC_URL }}icon/login.png" alt="login"></img></a>
+                </p>
             {% endif %}
+                <p>        
+                    {% block summary%} 
+                    {% endblock %}
+                </p>
         </nav>
 
     
