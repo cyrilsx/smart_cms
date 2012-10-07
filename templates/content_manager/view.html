@@ -1,0 +1,102 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ section.title }}{% endblock %}
+
+
+
+{% block content %}
+<table>
+    <thead>
+        <tr>
+        <td>
+            Name
+        </td>
+        <td>
+            Creation Date
+        </td>
+        <td>
+            Caption
+        </td>
+        <td>
+            File
+        </td>
+        <td>
+            Edit
+        </td>
+        <td>
+            Delete
+        </td>
+        <tr>
+    </thead>
+
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.file_name }}</td>
+            <td>{{ item.creation_date }}</td>
+            <td>{{ item.caption }}</td>
+            <td>{{ item.file }}</td>
+            <td><a href="/content/edit/{{ item.id }}"><img src="{{ STATIC_URL }}/icon/edit.gif" alt="edit" /></a></td>
+            <td><a href="/content/delete/{{ item.id }}"><img src="{{ STATIC_URL }}/icon/trash.gif" alt="trash" /></a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<section id="newItems">
+<form action="/content/edit/" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="fieldWrapper">
+        <label for="id_file_name">Username:</label>
+        <input id="id_file_name" type="text" name="file_name" {% if form.file_name.value %} value="{{ form.file_name.value}}" {% endif %}  maxlength="100" 
+        {% if form.file_name.errors|length > 0 %}
+            class="form-error"
+        {% else %}
+            class="form-valid"
+        {% endif %}
+        
+        />
+        {% if form.file_name.errors|length > 0 %}
+        <a href="#" class="in-error">
+            <img class="in-error" src="{{ STATIC_URL }}/icon/warning.png" alt="error" />
+            <span class="in-error">
+                {{ form.file_name.errors }}
+                </span>
+        </a>
+        {% endif %}
+    </div>
+    <div class="fieldWrapper">
+        <label for="id_caption">Email:</label>
+        <input id="id_caption" type="caption" name="caption" {% if form.username.value %} value="{{ form.username.value}}" {% endif %} 
+        {% if form.caption.errors|length > 0 %}
+            class="form-error"
+        {% else %}
+            class="form-valid"
+        {% endif %}
+        
+        />
+        {% if form.caption.errors|length > 0 %}
+        <a href="#" class="in-error">
+            <img class="in-error" src="{{ STATIC_URL }}/icon/warning.png" alt="error" />
+            <span class="in-error">
+                {{ form.caption.errors }}
+                </span>
+        </a>
+        {% endif %}
+    </div>
+    <input type="submit" value="Submit" />
+</form>
+</section>
+
+
+
+{% endblock %}
+
+
+
+
+{% block summary %}
+{{ section.summary }}
+{% endblock %}
